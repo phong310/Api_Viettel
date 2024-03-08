@@ -39,6 +39,7 @@ const DataController = {
                 hot: req.body.hot,
                 register: req.body.register,
                 description: req.body.description,
+                status: req.body.status,
                 type: req.body.type
             };
 
@@ -63,6 +64,7 @@ const DataController = {
                 hot: req.body.hot,
                 register: req.body.register,
                 description: req.body.description,
+                status: req.body.status,
                 type: req.body.type
             }
             const query = { _id: DataId };
@@ -84,7 +86,30 @@ const DataController = {
         } catch (e) {
             res.status(500).json({ Err: e })
         }
-    }
+    },
+
+    // Search
+    searchDataNetWork: async (req, res) => {
+        try {
+            const name = req.query.name;
+            const hot = req.query.hot;
+            const status = req.query.status;
+            let query = {};
+            if (name && status && hot) {
+                query = { name: new RegExp(name, "i"), hot: hot, status: status };
+            } else if (name) {
+                query = { name: new RegExp(name, "i") };
+            } else if (hot) {
+                query = { hot: hot };
+            } else if (status) {
+                query = { status: status };
+            }
+            const data = await DataModel.find(query);
+            res.status(200).json(data);
+        } catch (e) {
+            res.status(500).json({ err: e });
+        }
+    },
 
 }
 
