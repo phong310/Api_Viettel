@@ -97,6 +97,8 @@ const DataController = {
             let query = {};
             if (name && status && hot) {
                 query = { name: new RegExp(name, "i"), hot: hot, status: status };
+            } else if (status && hot) {
+                query = {hot: hot, status: status}
             } else if (name) {
                 query = { name: new RegExp(name, "i") };
             } else if (hot) {
