@@ -26,7 +26,7 @@ const DataSchema = new mongoose.Schema({
         require: true
     },
     hot: {
-        type: Boolean,
+        type: String,
         require: true,
     },
     register: {
@@ -38,7 +38,7 @@ const DataSchema = new mongoose.Schema({
         require: true
     },
     status: {
-        type: Boolean,
+        type: String,
         require: true
     },
     type: {
