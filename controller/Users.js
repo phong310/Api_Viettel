@@ -25,7 +25,7 @@ const UserController = {
                 email: req.body.email,
                 password: hashedPassword,
                 confirm: hashConfirmPass,
-                phone:req.body.phone,
+                phone: req.body.phone,
                 status: req.body.status
             })
 
@@ -70,6 +70,28 @@ const UserController = {
             res.status(500).json({ Err: e })
         }
     },
+
+    // Search
+    searchUserList: async (req, res) => {
+        try {
+            const username = req.query.username;
+            const status = req.query.status;
+            let query = {};
+            if (username & status) {
+                query = { username: new RegExp(username, "i"), status: status }
+            } else if (username) {
+                query = { username: new RegExp(username, "i")};
+            } else if (status) {
+                query = { status: status }
+            }
+
+            const data = await UserModel.find(query);
+            res.status(200).json(data)
+
+        } catch (e) {
+            res.status(500).json({ err: e })
+        }
+    }
 
 }
 

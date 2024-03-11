@@ -22,7 +22,7 @@ const UsersSchema = new mongoose.Schema({
         required: false,
     },
     status: {
-        type: Number,
+        type: String,
         required: true
     },
 }, { timestamps:true})
